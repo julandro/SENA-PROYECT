@@ -11,8 +11,7 @@ Este proyecto será construido con una arquitectura Cliente-Servidor:
 
 # Estructura del Proyecto
 
-```
-  `
+```bash
   /SENA-PROYECTO
   │
   ├── /client/                  # Frontend (React)
