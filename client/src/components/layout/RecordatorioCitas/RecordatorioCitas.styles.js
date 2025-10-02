@@ -1,20 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
-import CardInfoCitas from "./CardInfoCitas";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import IconButton from "@mui/material/IconButton";
-
 const drawerWidth = 240;
 
-const AppBar = styled(MuiAppBar, {
+export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open, isCitasShowing }) => ({
   //height: "120px",
@@ -56,7 +45,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const BoxToggleButton = styled(Box, {
+export const BoxToggleButton = styled(Box, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open, isCitasShowing }) => ({
   position: "fixed",
@@ -80,35 +69,3 @@ const BoxToggleButton = styled(Box, {
     },
   }),
 }));
-
-export default function RecordatorioCitas({ open }) {
-  const [isCitasShowing, setIsCitasShowing] = useState(true);
-  return (
-    <>
-      <BoxToggleButton
-        open={open}
-        isCitasShowing={isCitasShowing}
-        sx={{ px: 1, py: 0.3, borderTopRightRadius: 100 }}
-      >
-        <Typography sx={{ px: 3 }}>Citas Programadas</Typography>
-        <IconButton
-          aria-label="delete"
-          size="medium"
-          sx={{ ml: 10, cursor: "pointer", mr: 2 }}
-          onClick={() => setIsCitasShowing(!isCitasShowing)}
-        >
-          {isCitasShowing ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        </IconButton>
-      </BoxToggleButton>
-      <AppBar
-        position="fixed"
-        open={open}
-        isCitasShowing={isCitasShowing}
-        elevation={3}
-        sx={{ background: "transparent" }}
-      >
-        <CardInfoCitas />
-      </AppBar>
-    </>
-  );
-}

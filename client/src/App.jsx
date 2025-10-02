@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import RecordatorioCitas from './components/RecordatorioCitas';
-import MainComponent from './components/MainComponent';
+import Sidebar from './components/layout/Sidebar/Sidebar';
+import RecordatorioCitas from './components/layout/RecordatorioCitas/RecordatorioCitas';
+import MainComponent from './components/layout/Layout';
 
 function App() {
   const [open, setOpen] = useState(true);
 
   return (
     <div>
-      <Navbar open={open} setOpen={setOpen} />
+      <Sidebar open={open} setOpen={setOpen} />
       <MainComponent open={open}/>      
       <RecordatorioCitas open={open}/>
     </div>

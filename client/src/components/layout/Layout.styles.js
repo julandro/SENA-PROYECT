@@ -1,9 +1,8 @@
-import React from "react";
 import { styled } from "@mui/material/styles";
 
 const drawerWidth = 240;
 
-const Main = styled("div", {
+export const Main = styled("div", {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   height: "100vh",
@@ -34,11 +33,3 @@ const Main = styled("div", {
     }),
   }),
 }));
-
-export default function MainComponent({ open }) {
-  return (
-    <Main component="main" open={open} sx={{ flexGrow: 1, p: 3 }}>
-      <h3>INICIO...</h3>
-    </Main>
-  );
-}
