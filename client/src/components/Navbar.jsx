@@ -171,9 +171,8 @@ const Drawer = styled(MuiDrawer, {
   ],
 }));
 
-export default function Navbar() {
+export default function Navbar({ open, setOpen }) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
