@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+import ProtectRoutes from "./components/auth/ProtectRoutes";
+
 import MainLayout from "./components/layout/MainLayout";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Productos from "./components/pages/Productos";
@@ -13,7 +16,15 @@ import RealizarFactura from "./components/pages/RealizarFactura";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+      {/* Rutas Protegidas */}
+      <Route
+        path="/"
+        element={
+          <ProtectRoutes>
+            <MainLayout />
+          </ProtectRoutes>
+        }
+      >
         <Route path="/productos" element={<Productos />}></Route>
         <Route path="/facturas" element={<Facturas />}></Route>
         <Route path="/citas" element={<Citas />}></Route>
