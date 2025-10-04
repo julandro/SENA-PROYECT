@@ -19,6 +19,7 @@ import Mascotas from "./components/pages/Mascotas";
 import Empleados from "./components/pages/Empleados";
 import GestionesMedicas from "./components/pages/GestionesMedicas";
 import RealizarFactura from "./components/pages/RealizarFactura";
+import Inicio from "./components/pages/Inicio";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           </ProtectRoutes>
         }
       >
+        <Route index path="/" element={<Inicio />}></Route>
         <Route path="/productos" element={<Productos />}></Route>
         <Route path="/facturas" element={<Facturas />}></Route>
         <Route path="/citas" element={<Citas />}></Route>
@@ -47,6 +49,9 @@ function App() {
         <Route path="/gestiones-medicas" element={<GestionesMedicas />}></Route>
         <Route path="/realizar-factura" element={<RealizarFactura />}></Route>
       </Route>
+
+      {/* Si la ruta no existe lo redirige al home (si esta logueado, sino a las rutas publicas) */}
+      <Route path="*" element={<Navigate to='/' replace/>}/>
     </Routes>
   );
 }
