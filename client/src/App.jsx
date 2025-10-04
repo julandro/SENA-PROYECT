@@ -1,9 +1,16 @@
 import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
+// Proteccion
 import ProtectRoutes from "./components/auth/ProtectRoutes";
 
+// Layouts
+import AuthLayout from "./components/layout/AuthLayout";
 import MainLayout from "./components/layout/MainLayout";
-import { Routes, Route, Navigate } from "react-router-dom";
+
+// Pages
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
 import Productos from "./components/pages/Productos";
 import Facturas from "./components/pages/Facturas";
 import Citas from "./components/pages/Citas";
@@ -16,6 +23,12 @@ import RealizarFactura from "./components/pages/RealizarFactura";
 function App() {
   return (
     <Routes>
+      {/* Rutas Públicas */}
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<Login/>}></Route>
+        <Route path="/register" element={<Register/>}></Route>
+      </Route>
+
       {/* Rutas Protegidas */}
       <Route
         path="/"
