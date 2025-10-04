@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 
-import CardInfoCitas from "../../ui/CardInfoCitas";
+import CardInfoCitas from "../../../ui/CardInfoCitas";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import IconButton from "@mui/material/IconButton";
 
-import {AppBar, BoxToggleButton} from "./RecordatorioCitas.styles"
+import {AppBar, BoxToggleButton} from "./styles"
 
 export default function RecordatorioCitas({ open }) {
   const [isCitasShowing, setIsCitasShowing] = useState(true);

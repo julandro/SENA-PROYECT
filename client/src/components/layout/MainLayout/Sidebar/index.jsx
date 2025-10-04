@@ -28,7 +28,7 @@ import PetsRoundedIcon from '@mui/icons-material/PetsRounded';
 import WorkIcon from '@mui/icons-material/Work';
 import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
-import { DrawerHeader, Drawer } from './Sidebar.styles';
+import { DrawerHeader, Drawer } from './styles';
 
 
 
