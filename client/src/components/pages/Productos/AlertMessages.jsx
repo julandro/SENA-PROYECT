@@ -1,22 +1,21 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 
-export default function AlertMessages({ open, setOpen, isSuccess }) {
+export default function AlertMessages({ alert, setAlert }) {
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    setOpen(false);
+    setAlert({ open: false, isSuccess: null });
   };
 
   return (
     <div>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        {isSuccess ? (
+      <Snackbar open={alert.open} autoHideDuration={3000} onClose={handleClose}>
+        {alert.isSuccess ? (
           <Alert
             icon={<CheckIcon fontSize="inherit" />}
             severity="success"

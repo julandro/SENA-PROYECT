@@ -5,9 +5,10 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Grid, Stack, TextField } from '@mui/material';
-import { useState } from 'react';
+import { Stack, TextField } from '@mui/material';
 import AlertMessages from './AlertMessages';
+import { useFormularioProducto } from './useFormularioProducto';
+import { useEffect } from 'react';
 
 const style = {
   position: 'absolute',
@@ -21,46 +22,19 @@ const style = {
   borderRadius: '20px',
 };
 
-export default function ModalProducto({ openModal: open, setOpenModal }) {
-  const [valorProducto, setValorProducto] = useState({
-    nombre: '',
-    descripcion: '',
-    tipo: '',
-    precio: 0,
-    stock: 0,
-  });
-  const [openAlert, setOpenAlert] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(null);
+const initialState = {
+  nombre: '',
+  descripcion: '',
+  tipo: '',
+  precio: 0,
+  stock: 0,
+};
 
+export default function ModalProducto({ openModal: open, setOpenModal }) {
   const handleClose = () => setOpenModal(false);
 
-  /**
-   * Maneja el cambio de valor de los campos del formulario.
-   * @param {React.ChangeEvent<HTMLInputElement>} e - Evento del input.
-   */
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValorProducto((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const saveProduct = () => {
-    const { descripcion, nombre, precio, stock, tipo } = valorProducto;
-    const isValid = descripcion && nombre && precio && stock && tipo;
-
-    setOpenAlert(true);
-    setIsSuccess(isValid);
-
-    if (isValid) {
-      setValorProducto({
-        nombre: '',
-        descripcion: '',
-        tipo: '',
-        precio: 0,
-        stock: 0,
-      });
-      return setOpenModal(false);
-    }
-  };
+  const { producto, alert, setAlert, handleChange, saveProduct } =
+    useFormularioProducto(initialState, handleClose);
 
   return (
     <div>
@@ -98,7 +72,7 @@ export default function ModalProducto({ openModal: open, setOpenModal }) {
                   size="small"
                   type="text"
                   name="nombre"
-                  value={valorProducto.nombre}
+                  value={producto.nombre}
                   onChange={handleChange}
                 />
               </Box>
@@ -113,7 +87,7 @@ export default function ModalProducto({ openModal: open, setOpenModal }) {
                   type="text"
                   size="small"
                   name="descripcion"
-                  value={valorProducto.descripcion}
+                  value={producto.descripcion}
                   onChange={handleChange}
                 />
               </Box>
@@ -127,7 +101,7 @@ export default function ModalProducto({ openModal: open, setOpenModal }) {
                   type=""
                   size="small"
                   name="tipo"
-                  value={valorProducto.tipo}
+                  value={producto.tipo}
                   onChange={handleChange}
                 />
               </Box>
@@ -142,7 +116,7 @@ export default function ModalProducto({ openModal: open, setOpenModal }) {
                     type="number"
                     size="small"
                     name="precio"
-                    value={valorProducto.precio}
+                    value={producto.precio}
                     onChange={handleChange}
                   />
                 </Box>
@@ -156,7 +130,7 @@ export default function ModalProducto({ openModal: open, setOpenModal }) {
                     type="number"
                     size="small"
                     name="stock"
-                    value={valorProducto.stock}
+                    value={producto.stock}
                     onChange={handleChange}
                   />
                 </Box>
@@ -173,13 +147,7 @@ export default function ModalProducto({ openModal: open, setOpenModal }) {
           </Box>
         </Fade>
       </Modal>
-      {openAlert && (
-        <AlertMessages
-          open={openAlert}
-          setOpen={setOpenAlert}
-          isSuccess={isSuccess}
-        />
-      )}
+      {alert && <AlertMessages alert={alert} setAlert={setAlert} />}
     </div>
   );
 }
