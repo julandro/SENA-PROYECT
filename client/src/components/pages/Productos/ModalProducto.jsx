@@ -17,7 +17,7 @@ const BoxModal = styled(Box, {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: modalContent === 'add' ? 400 : 'auto',
+  width: 400,
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[5],
   padding: theme.spacing(4),
@@ -62,7 +62,7 @@ export default function ModalProducto({ modalContent, closeModal }) {
         }}
       >
         <Fade in={!!modalContent} unmountOnExit>
-          <BoxModal modalContent={lastContent}>{content}</BoxModal>
+          <BoxModal>{content}</BoxModal>
         </Fade>
       </Modal>
     </div>

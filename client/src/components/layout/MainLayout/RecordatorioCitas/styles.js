@@ -46,7 +46,7 @@ export const AppBar = styled(MuiAppBar, {
 }));
 
 export const BoxToggleButton = styled(Box, {
-  shouldForwardProp: (prop) => ['open', 'isCitaShowing'].includes(prop),
+  shouldForwardProp: (prop) => !['open', 'isCitaShowing'].includes(prop),
 })(({ theme, open, isCitasShowing }) => ({
   position: 'fixed',
   bottom: isCitasShowing ? '120px' : '0px', // 👈 cambia entre 122px y 0px
