@@ -108,8 +108,6 @@ export default function Sidebar({ open, setOpen }) {
     setOpen(false);
   };
 
-  const logoSrc = ''; // Agrega la URL de tu logo aquí
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -118,9 +116,7 @@ export default function Sidebar({ open, setOpen }) {
         <DrawerHeader>
           {open ? (
             <>
-              {logoSrc && (
-                <img src={logoSrc} alt="Lucky GVO" style={{ margin: 'auto' }} />
-              )}
+              <img alt="Lucky GVO" style={{ margin: 'auto' }} />
               <IconButton onClick={handleDrawerClose}>
                 {theme.direction === 'rtl' ? (
                   <ChevronRightIcon />
