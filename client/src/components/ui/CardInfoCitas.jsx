@@ -35,7 +35,7 @@ function CardInfoCitas() {
       }}
     >
       {cards.map((card, index) => (
-        <Card>
+        <Card key={card.id}>
           <CardActionArea
             sx={{
               height: '100%',

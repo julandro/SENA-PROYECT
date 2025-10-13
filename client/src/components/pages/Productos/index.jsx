@@ -10,7 +10,7 @@ import TablaProductos from './TablaProductos';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { Divider, Typography } from '@mui/material';
-import ModalProducto from './AgregarProducto';
+import ModalProducto from './ModalProducto';
 import { useState } from 'react';
 
 const BoxOptions = styled('div')(() => ({
@@ -23,7 +23,9 @@ const BoxOptions = styled('div')(() => ({
 }));
 
 const Productos = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+
+  const handleOpen = (type) => () => setModalContent(type);
 
   return (
     <>
@@ -35,7 +37,7 @@ const Productos = () => {
             variant="contained"
             color="success"
             startIcon={<AddCircleIcon />}
-            onClick={() => setOpenModal(true)}
+            onClick={handleOpen('add')}
           >
             Agregar Producto
           </Button>
@@ -43,14 +45,17 @@ const Productos = () => {
             variant="contained"
             color="inherit"
             startIcon={<FilterListIcon />}
-            onClick={() => setOpenModal(true)}
+            onClick={handleOpen('filter')}
           >
             FILTRAR
           </Button>
         </Stack>
       </BoxOptions>
       <TablaProductos />
-      <ModalProducto openModal={openModal} setOpenModal={setOpenModal} />
+      <ModalProducto
+        modalContent={modalContent}
+        closeModal={() => setModalContent(null)}
+      />
     </>
   );
 };

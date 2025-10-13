@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 const drawerWidth = 240;
 
 export const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => !['open', 'isCitasShowing'].includes(prop),
 })(({ theme, open, isCitasShowing }) => ({
   //height: "120px",
   top: 'auto',
@@ -46,7 +46,7 @@ export const AppBar = styled(MuiAppBar, {
 }));
 
 export const BoxToggleButton = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => ['open', 'isCitaShowing'].includes(prop),
 })(({ theme, open, isCitasShowing }) => ({
   position: 'fixed',
   bottom: isCitasShowing ? '120px' : '0px', // 👈 cambia entre 122px y 0px
