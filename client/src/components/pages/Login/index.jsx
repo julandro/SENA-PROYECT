@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useAuth } from '../../../contexts/AuthContext';
 
 const AuthBox = styled(Paper)(({ theme }) => ({
   width: '100%',
@@ -23,6 +24,14 @@ const AuthBox = styled(Paper)(({ theme }) => ({
 }));
 
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    login();
+    navigate('/');
+  };
+
   return (
     <AuthBox elevation={2}>
       {/* Header */}
@@ -66,8 +75,13 @@ const Login = () => {
 
       {/* Botones */}
       <Stack spacing={2} sx={{ mt: 5 }}>
-        <Button variant="contained" fullWidth sx={{ py: 1.2 }}>
-          Iniciar sesión
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ py: 1.2 }}
+          onClick={handleLogin}
+        >
+          Iniciar sesión (PROTOTIPO)
         </Button>
         <Typography variant="subtitle2" textAlign="center">
           ¿No tienes una cuenta?{' '}
