@@ -77,7 +77,7 @@ npm run dev
 
 - [x] En desarrollo
 
-## Authors
+## Autores
 
 Julian Alejandro Camacho Mendoza
 SENA – Tecnología en Análisis y Desarrollo de Software – Ficha 2977360
