@@ -57,7 +57,14 @@ git clone https://github.com/julandro/SENA-PROYECTO.git
 cd SENA-PROYECTO
 ```
 
+### 2. Cambio a la rama de desarrollo
+
+```bash
+git checkout staging
+```
+
 ### 2. Configuración del Frontend
+
 ```bash
 cd client
 npm install
@@ -67,8 +74,8 @@ npm run dev
 # Diagrama de Despliegue
 
 ## Estado del Proyecto
+
 - [x] En desarrollo
-- Primera versión planeada: Noviembre 2025
 
 ## Authors
 
