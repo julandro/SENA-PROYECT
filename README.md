@@ -16,20 +16,6 @@ Este proyecto será construido con una arquitectura Cliente-Servidor:
   │
   ├── /client/                  # Frontend (React)
   │   ├── /src/
-  │   │   ├── /assets/          # Archivos estáticos (imágenes, fuentes, etc.)
-  │   │   ├── /components/      # Componentes UI
-  │   │   │   ├── /features/    # Componentes específicos de una funcionalidad (actualmente vacío)
-  │   │   │   ├── /layout/      # Componentes de estructura (Sidebar, etc.)
-  │   │   │   │   ├── /RecordatorioCitas/
-  │   │   │   │   │   ├── RecordatorioCitas.jsx
-  │   │   │   │   │   └── RecordatorioCitas.styles.js
-  │   │   │   │   ├── /Sidebar/
-  │   │   │   │   │   ├── Sidebar.jsx
-  │   │   │   │   │   └── Sidebar.styles.js
-  │   │   │   │   ├── Layout.jsx
-  │   │   │   │   └── Layout.styles.js
-  │   │   │   └── /ui/          # Componentes de UI reutilizables
-  │   │   │       └── CardInfoCitas.jsx
   │   │   ├── App.jsx           # Punto principal de React
   │   │   └── main.jsx          # Punto de entrada de la aplicación
   │   ├── .gitignore
@@ -55,12 +41,6 @@ Este proyecto será construido con una arquitectura Cliente-Servidor:
 ```bash
 git clone https://github.com/julandro/SENA-PROYECTO.git
 cd SENA-PROYECTO
-```
-
-### 2. Cambio a la rama de desarrollo
-
-```bash
-git checkout staging
 ```
 
 ### 2. Configuración del Frontend
