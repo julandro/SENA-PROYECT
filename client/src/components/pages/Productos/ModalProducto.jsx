@@ -25,16 +25,37 @@ const BoxModal = styled(Box, {
   overflow: 'hidden', // importante para que los bordes recorten el contenido
 }));
 
-export default function ModalProducto({ modalContent, closeModal }) {
+export default function ModalProducto({
+  modalContent,
+  closeModal,
+  producto,
+  handleChange,
+  saveProduct,
+}) {
   const [content, setContent] = useState(null);
-  const [lastContent, setLastContent] = useState(null);
 
   useEffect(() => {
     if (modalContent) {
-      setLastContent(modalContent);
       switch (modalContent) {
         case 'add':
-          setContent(<AddProductForm closeModal={closeModal} />);
+          setContent(
+            <AddProductForm
+              producto={producto}
+              handleChange={handleChange}
+              saveProduct={saveProduct}
+              isEdit={false}
+            />
+          );
+          break;
+        case 'edit':
+          setContent(
+            <AddProductForm
+              producto={producto}
+              handleChange={handleChange}
+              saveProduct={saveProduct}
+              isEdit={true}
+            />
+          );
           break;
         case 'filter':
           setContent(<FilterProductForm closeModal={closeModal} />);
@@ -44,7 +65,7 @@ export default function ModalProducto({ modalContent, closeModal }) {
           break;
       }
     }
-  }, [modalContent, closeModal]);
+  }, [modalContent, producto]);
 
   return (
     <div>

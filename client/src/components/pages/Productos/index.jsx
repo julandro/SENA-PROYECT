@@ -12,6 +12,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { Divider, Typography } from '@mui/material';
 import ModalProducto from './ModalProducto';
 import { useState } from 'react';
+import { useFormularioProducto } from './useFormularioProducto';
 
 const BoxOptions = styled('div')(() => ({
   position: 'fixed',
@@ -25,7 +26,22 @@ const BoxOptions = styled('div')(() => ({
 const Productos = () => {
   const [modalContent, setModalContent] = useState(null);
 
-  const handleOpen = (type) => () => setModalContent(type);
+  const handleOpen = (type) => setModalContent(type);
+
+  const {
+    producto,
+    editProducto,
+    handleChange,
+    saveProduct,
+    resetProducto,
+    dataProductos,
+    deleteProducto,
+  } = useFormularioProducto(handleOpen);
+
+  const closeModalAndReset = () => {
+    handleOpen(null);
+    resetProducto();
+  };
 
   return (
     <>
@@ -37,7 +53,7 @@ const Productos = () => {
             variant="contained"
             color="success"
             startIcon={<AddCircleIcon />}
-            onClick={handleOpen('add')}
+            onClick={() => handleOpen('add')}
           >
             Agregar Producto
           </Button>
@@ -45,16 +61,23 @@ const Productos = () => {
             variant="contained"
             color="inherit"
             startIcon={<FilterListIcon />}
-            onClick={handleOpen('filter')}
+            onClick={() => handleOpen('filter')}
           >
             FILTRAR
           </Button>
         </Stack>
       </BoxOptions>
-      <TablaProductos />
+      <TablaProductos
+        editProducto={editProducto}
+        dataProductos={dataProductos}
+        deleteProducto={deleteProducto}
+      />
       <ModalProducto
         modalContent={modalContent}
-        closeModal={() => setModalContent(null)}
+        closeModal={closeModalAndReset}
+        producto={producto}
+        saveProduct={saveProduct}
+        handleChange={handleChange}
       />
     </>
   );
