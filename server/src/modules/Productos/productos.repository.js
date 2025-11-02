@@ -35,7 +35,7 @@ class Productos {
     await Productos.getCollection();
 
     const result = await Productos.collection.updateOne(
-      { id },
+      { _id: id },
       { $set: newProduct }
     );
     return result;
@@ -60,7 +60,7 @@ class Productos {
   static async eliminarProducto(id) {
     await Productos.getCollection();
 
-    const result = await Productos.collection.deleteOne({ id: id });
+    const result = await Productos.collection.deleteOne({ _id: id });
     return result;
   }
 }

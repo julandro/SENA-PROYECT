@@ -1,6 +1,4 @@
 import Productos from './productos.repository.js';
-import { randomUUID } from 'crypto';
-import { ObjectId } from 'mongodb';
 /**
  *
  * @param {import('express').Request} req
@@ -8,7 +6,6 @@ import { ObjectId } from 'mongodb';
  */
 export const insertProduct = async (req, res) => {
   try {
-    req.body._id = new ObjectId().toString();
     const result = await Productos.crearProducto(req.body);
     res.send({
       code: 200,
@@ -27,8 +24,8 @@ export const insertProduct = async (req, res) => {
  */
 export const editProduct = async (req, res) => {
   try {
-    const { id, ...newData } = req.body;
-    const result = await Productos.editarProducto(id, newData);
+    const { _id, ...newData } = req.body;
+    const result = await Productos.editarProducto(_id, newData);
     res.send({
       code: 200,
       message: 'Se edito el producto exitosamente',
@@ -50,7 +47,7 @@ export const editProduct = async (req, res) => {
  */
 export const deleteProduct = async (req, res) => {
   try {
-    const result = await Productos.eliminarProducto(req.body.id);
+    const result = await Productos.eliminarProducto(req.body._id);
     res.send({
       code: 200,
       message: 'Se elimino el producto exitosamente',
