@@ -16,6 +16,20 @@ Este proyecto será construido con una arquitectura Cliente-Servidor:
   │
   ├── /client/                  # Frontend (React)
   │   ├── /src/
+  │   │   ├── /assets/          # Archivos estáticos (imágenes, fuentes, etc.)
+  │   │   ├── /components/      # Componentes UI
+  │   │   │   ├── /features/    # Componentes específicos de una funcionalidad (actualmente vacío)
+  │   │   │   ├── /layout/      # Componentes de estructura (Sidebar, etc.)
+  │   │   │   │   ├── /RecordatorioCitas/
+  │   │   │   │   │   ├── RecordatorioCitas.jsx
+  │   │   │   │   │   └── RecordatorioCitas.styles.js
+  │   │   │   │   ├── /Sidebar/
+  │   │   │   │   │   ├── Sidebar.jsx
+  │   │   │   │   │   └── Sidebar.styles.js
+  │   │   │   │   ├── Layout.jsx
+  │   │   │   │   └── Layout.styles.js
+  │   │   │   └── /ui/          # Componentes de UI reutilizables
+  │   │   │       └── CardInfoCitas.jsx
   │   │   ├── App.jsx           # Punto principal de React
   │   │   └── main.jsx          # Punto de entrada de la aplicación
   │   ├── .gitignore
@@ -44,7 +58,6 @@ cd SENA-PROYECTO
 ```
 
 ### 2. Configuración del Frontend
-
 ```bash
 cd client
 npm install
@@ -54,10 +67,10 @@ npm run dev
 # Diagrama de Despliegue
 
 ## Estado del Proyecto
-
 - [x] En desarrollo
+- Primera versión planeada: Noviembre 2025
 
-## Autores
+## Authors
 
 Julian Alejandro Camacho Mendoza
 SENA – Tecnología en Análisis y Desarrollo de Software – Ficha 2977360
