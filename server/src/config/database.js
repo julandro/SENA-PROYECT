@@ -1,7 +1,11 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 import env from './env.js';
 
 const client = new MongoClient(env.MONGO_URI);
+
+/**
+ * @type {Db}
+ */
 let db;
 
 const connectDB = async () => {
