@@ -1,29 +1,17 @@
 import React from 'react';
-import { useFormularioProducto } from './useFormularioProducto';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box, Stack, TextField } from '@mui/material';
-import AlertMessages from './AlertMessages';
 
-const initialState = {
-  nombre: '',
-  descripcion: '',
-  tipo: '',
-  precio: 0,
-  stock: 0,
-};
-
-const AddProductForm = ({ closeModal }) => {
-  const { producto, alert, setAlert, handleChange, saveProduct } =
-    useFormularioProducto(initialState, closeModal);
+const AddProductForm = ({ producto, handleChange, saveProduct, isEdit }) => {
   return (
     <>
       <Box>
         <Typography variant="h5" fontWeight="bold">
-          Agregar Producto
+          {isEdit ? 'Editar' : 'Agregar'} Producto
         </Typography>
         <Typography variant="subtitle2" color="text.secondary">
-          Digite los campos para añadir el producto
+          Digite los campos para {isEdit ? 'editar' : 'añadir'} el producto
         </Typography>
       </Box>
       <Stack spacing={3} marginTop={3}>
@@ -106,7 +94,7 @@ const AddProductForm = ({ closeModal }) => {
           color="success"
           onClick={() => saveProduct()}
         >
-          Agregar Producto
+          {isEdit ? 'Editar' : 'Agregar'} Producto
         </Button>
       </Stack>
     </>
