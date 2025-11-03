@@ -103,7 +103,7 @@ const Login = () => {
           sx={{ py: 1.2 }}
           onClick={handleLogin}
         >
-          Iniciar sesión (PROTOTIPO)
+          Iniciar sesión
         </Button>
         <Typography variant="subtitle2" textAlign="center">
           ¿No tienes una cuenta?{' '}
