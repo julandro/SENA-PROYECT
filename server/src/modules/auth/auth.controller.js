@@ -83,15 +83,19 @@ export const login = async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: env.ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: env.NODE_ENV === 'production', // Solo en produccion
+      sameSite: 'lax',
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
     });
 
-    return res.status(200).send({
+    // Preparamos el objeto de usuario para enviarlo, sin el password
+    const { password: _, ...user } = existUser;
+
+    return res.send({
       code: 200,
-      message: 'Se registro el usuario exitosamente',
+      message: `Usuario logueado exitosamente`,
       accessToken,
+      user,
     });
   } catch (error) {
     return res.send({
@@ -115,10 +119,27 @@ export const refreshToken = (req, res) => {
       message: 'Refresh token invalido',
     });
 
-  jwt.verify(refreshToken, env.JWT_REFRESH_SECRET, (err, user) => {
-    if (err) return res.status(400).send({ message: 'Refresh Token invalido' });
-    const { accessToken } = generateTokens(user);
+  jwt.verify(refreshToken, env.JWT_REFRESH_SECRET, async (err, user) => {
+    if (err) return res.status(401).send({ message: 'Refresh Token invalido' });
+    const { password: _, ...usuario } = await User.getUserById(user.id);
+    const { accessToken } = generateTokens(usuario);
 
-    res.send({ accessToken });
+    res.send({ accessToken, user: usuario });
   });
+};
+
+/**
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export const logout = (req, res) => {
+  res.cookie('refreshToken', '', {
+    httpOnly: true,
+    secure: env.NODE_ENV === 'production', // Solo en produccion
+    sameSite: 'lax',
+    expires: new Date(0),
+  });
+
+  return res.status(200).send({ message: 'Cookie invalidada' });
 };

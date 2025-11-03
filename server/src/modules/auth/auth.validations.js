@@ -12,7 +12,7 @@ export const registerUserSchema = userBaseSchema.extend({
   acceptedTerms: z.literal(true),
 });
 
-export const loginUserSchema = registerUserSchema.extend({
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
+export const loginUserSchema = z.object({
+  email: z.email().nonempty(),
+  password: z.string().nonempty(),
 });

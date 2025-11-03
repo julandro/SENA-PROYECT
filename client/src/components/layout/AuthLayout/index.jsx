@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Outlet } from 'react-router-dom';
+import { useState } from 'react';
 
 const LoginContainer = styled('div')({
   background: '#e9e9e9ff',
@@ -12,9 +13,11 @@ const LoginContainer = styled('div')({
 });
 
 const AuthLayout = () => {
+  const [alert, setAlert] = useState(null);
   return (
     <LoginContainer>
-      <Outlet />
+      <Outlet context={{ alert, setAlert }} />
+      {alert}
     </LoginContainer>
   );
 };

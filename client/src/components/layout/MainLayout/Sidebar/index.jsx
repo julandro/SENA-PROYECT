@@ -30,6 +30,7 @@ import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import { DrawerHeader, Drawer } from './styles';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../../../contexts/AuthContext';
 
 const listLinks = [
   {
@@ -98,6 +99,7 @@ const listLinks = [
 ];
 
 export default function Sidebar({ open, setOpen }) {
+  const { user, logout } = useAuth();
   const theme = useTheme();
 
   const handleDrawerOpen = () => {
@@ -146,10 +148,10 @@ export default function Sidebar({ open, setOpen }) {
                 <Avatar alt="Remy Sharp" sx={{ width: 30, height: 30 }} />
                 <Box sx={{ width: 180, maxWidth: 180, overflow: 'hidden' }}>
                   <Typography variant="subtitle2" noWrap sx={{ ml: 2.4 }}>
-                    Julian Camacho
+                    {user.username}
                   </Typography>
                 </Box>
-                <IconButton sx={{ ml: 1.5, scale: 0.9 }}>
+                <IconButton sx={{ ml: 1.5, scale: 0.9 }} onClick={logout}>
                   <LogoutIcon />
                 </IconButton>
               </ListItem>
