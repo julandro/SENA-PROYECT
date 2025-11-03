@@ -9,17 +9,9 @@ import {
 
 const router = Router();
 
-router.get('/getAll', productController.getAllProducts);
-router.post(
-  '/add',
-  validateSchema(AddProductoSchema),
-  productController.insertProduct
-);
-router.post(
-  '/edit',
-  validateSchema(ProductoSchema),
-  productController.editProduct
-);
-router.post('/delete', validateSchema(id), productController.deleteProduct);
+router.post('/getAllMyProducts', productController.getAllMyProducts);
+router.post('/add', productController.insertProduct);
+router.post('/edit', productController.editProduct);
+router.post('/delete', productController.deleteProduct);
 
 export default router;

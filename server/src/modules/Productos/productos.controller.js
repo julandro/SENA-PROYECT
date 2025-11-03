@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import Productos from './productos.repository.js';
 /**
  *
@@ -6,7 +7,14 @@ import Productos from './productos.repository.js';
  */
 export const insertProduct = async (req, res) => {
   try {
-    const result = await Productos.crearProducto(req.body);
+    const newProduct = {
+      _id: String(new ObjectId()),
+      ...req.body,
+      createdAt: new Date(),
+    };
+
+    const result = await Productos.crearProducto(newProduct);
+
     res.send({
       code: 200,
       message: 'Se inserto el producto exitosamente',
@@ -24,8 +32,14 @@ export const insertProduct = async (req, res) => {
  */
 export const editProduct = async (req, res) => {
   try {
-    const { _id, ...newData } = req.body;
-    const result = await Productos.editarProducto(_id, newData);
+    const { idProduct, userId, ...newData } = req.body;
+
+    const result = await Productos.editarProducto({
+      idProduct,
+      userId,
+      newProduct: newData,
+    });
+
     res.send({
       code: 200,
       message: 'Se edito el producto exitosamente',
@@ -47,7 +61,7 @@ export const editProduct = async (req, res) => {
  */
 export const deleteProduct = async (req, res) => {
   try {
-    const result = await Productos.eliminarProducto(req.body._id);
+    const result = await Productos.eliminarProducto(req.body.id);
     res.send({
       code: 200,
       message: 'Se elimino el producto exitosamente',
@@ -58,9 +72,15 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-export const getAllProducts = async (req, res) => {
+/**
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+export const getAllMyProducts = async (req, res) => {
   try {
-    const productos = await Productos.listarProductos();
+    const productos = await Productos.listarMisProductos(req.body.userId);
+
     res.send({
       code: 200,
       message: 'Se listaron los producto exitosamente',

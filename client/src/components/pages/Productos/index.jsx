@@ -1,9 +1,6 @@
 import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import TablaProductos from './TablaProductos';
 
@@ -15,14 +12,10 @@ import { useState } from 'react';
 import { useFormularioProducto } from './useFormularioProducto';
 
 const BoxOptions = styled('div')(() => ({
-  position: 'fixed',
   display: 'flex',
   justifySelf: 'center',
-  justifyItems: 'center',
-  alignItems: 'center',
   marginTop: 20,
 }));
-
 const Productos = () => {
   const [modalContent, setModalContent] = useState(null);
 
