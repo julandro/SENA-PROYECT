@@ -28,7 +28,10 @@ const validateSchema = (schema) => (req, res, next) => {
     console.log(req.body);
     next();
   } catch (error) {
-    res.status(400).json({ message: 'Datos inválidos', errors: error.errors });
+    res.status(400).send({
+      message: 'Datos inválidos',
+      errors: JSON.parse(error)[0].message,
+    });
   }
 };
 

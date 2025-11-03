@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Proteccion
@@ -20,12 +20,27 @@ import Empleados from './components/pages/Empleados';
 import GestionesMedicas from './components/pages/GestionesMedicas';
 import RealizarFactura from './components/pages/RealizarFactura';
 import Inicio from './components/pages/Inicio';
+import { setupInterceptos } from './services/api';
+import { useAuth } from './contexts/AuthContext';
+import PublicRoutes from './components/auth/PublicRoutes';
 
 function App() {
+  const { logout } = useAuth();
+
+  useEffect(() => {
+    setupInterceptos(logout);
+  }, [logout]);
+
   return (
     <Routes>
       {/* Rutas Públicas */}
-      <Route element={<AuthLayout />}>
+      <Route
+        element={
+          <PublicRoutes>
+            <AuthLayout />
+          </PublicRoutes>
+        }
+      >
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
       </Route>

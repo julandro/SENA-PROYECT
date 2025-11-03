@@ -12,6 +12,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useAuth } from '../../../contexts/AuthContext';
+import api from '../../../services/api';
+import { useState } from 'react';
 
 const AuthBox = styled(Paper)(({ theme }) => ({
   width: '100%',
@@ -24,12 +26,21 @@ const AuthBox = styled(Paper)(({ theme }) => ({
 }));
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    login();
-    navigate('/');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await api.post('/auth/login', { email, password });
+      login(data.user, data.accessToken);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -50,14 +61,25 @@ const Login = () => {
           <Typography variant="subtitle2" gutterBottom>
             Email
           </Typography>
-          <TextField fullWidth required />
+          <TextField
+            fullWidth
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </Box>
 
         <Box>
           <Typography variant="subtitle2" gutterBottom>
             Contraseña
           </Typography>
-          <TextField fullWidth required type="password" />
+          <TextField
+            fullWidth
+            required
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
           <Grid container justifyContent="flex-end" sx={{ mt: 1 }}>
             <MuiLink

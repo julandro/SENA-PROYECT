@@ -11,6 +11,7 @@ router.post(
   authController.register
 );
 router.post('/login', validateSchema(loginUserSchema), authController.login);
-router.get('/refresh-token', authController.refreshToken);
+router.post('/refresh-token', authController.refreshToken);
+router.post('/logout', authController.logout);
 
 export default router;
