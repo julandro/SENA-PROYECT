@@ -25,7 +25,6 @@ const validateSchema = (schema) => (req, res, next) => {
   try {
     const parsed = schema.parse(req.body);
     req.body = parsed;
-    console.log(req.body);
     next();
   } catch (error) {
     res.status(400).send({

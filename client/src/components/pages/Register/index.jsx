@@ -61,7 +61,7 @@ const Register = () => {
       );
 
     try {
-      const { data } = await api.post('/auth/register', {
+      await api.post('/auth/register', {
         ...newUser,
         acceptedTerms,
       });
@@ -75,7 +75,7 @@ const Register = () => {
       );
       navigate('/login');
     } catch (error) {
-      setAlert(
+      return setAlert(
         <AlertComponent
           setAlert={setAlert}
           message={`Error al registrar el usuario. ${
@@ -84,7 +84,6 @@ const Register = () => {
           modo="error"
         />
       );
-      console.log(error);
     }
   };
 

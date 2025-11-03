@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -14,6 +14,7 @@ import {
 import { useAuth } from '../../../contexts/AuthContext';
 import api from '../../../services/api';
 import { useState } from 'react';
+import AlertComponent from '../../ui/AlertComponent';
 
 const AuthBox = styled(Paper)(({ theme }) => ({
   width: '100%',
@@ -26,10 +27,13 @@ const AuthBox = styled(Paper)(({ theme }) => ({
 }));
 
 const Login = () => {
+  const { setAlert } = useOutletContext();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { login } = useAuth();
+
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -37,9 +41,26 @@ const Login = () => {
     try {
       const { data } = await api.post('/auth/login', { email, password });
       login(data.user, data.accessToken);
+
+      setAlert(
+        <AlertComponent
+          setAlert={setAlert}
+          modo="success"
+          message="Credenciales correctas. Iniciando sesión..."
+        />
+      );
+
       navigate('/');
     } catch (error) {
-      console.log(error);
+      return setAlert(
+        <AlertComponent
+          setAlert={setAlert}
+          modo="error"
+          message={`Error al iniciar sesion. ${
+            error.response.data.errors || error.response.data.message || ''
+          }`}
+        />
+      );
     }
   };
 

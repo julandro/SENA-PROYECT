@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
       try {
         const { data } = await api.post('/auth/refresh-token');
         const { user, accessToken } = data;
-        console.log({ data });
 
         login(user, accessToken);
         setIsAuthLoading(false);

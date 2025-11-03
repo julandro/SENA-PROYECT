@@ -123,7 +123,6 @@ export const refreshToken = (req, res) => {
     if (err) return res.status(401).send({ message: 'Refresh Token invalido' });
     const { password: _, ...usuario } = await User.getUserById(user.id);
     const { accessToken } = generateTokens(usuario);
-    console.log({ user });
 
     res.send({ accessToken, user: usuario });
   });
