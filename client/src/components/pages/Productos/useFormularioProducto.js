@@ -1,22 +1,16 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
+import api from '../../../services/api';
+import { useAuth } from '../../../contexts/AuthContext';
 
 const initialState = {
+  id: '',
   nombre: '',
   descripcion: '',
   tipo: '',
   precio: 0,
   stock: 0,
 };
-
-const data = [
-  {
-    nombre: 'Purina Dogshow',
-    descripcion: 'Purina para perro adulto. 6KG',
-    tipo: 'Alimento para perro',
-    precio: 240_000,
-    stock: 21,
-  },
-];
 
 /**
  *
@@ -26,8 +20,21 @@ const data = [
 export const useFormularioProducto = (handleOpen) => {
   const [producto, setProducto] = useState(initialState);
   const [dataProductos, setDataProductos] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
+  const { user } = useAuth();
 
   const closeModal = () => handleOpen(null);
+
+  useEffect(() => {
+    const getAllProducts = async () => {
+      const { data } = await api.post('/productos/getAllMyProducts', {
+        userId: user._id,
+      });
+      setDataProductos(data.data);
+    };
+    getAllProducts();
+  }, [refresh]);
 
   /**
    * Maneja el cambio de valor de los campos del formulario.
@@ -45,6 +52,7 @@ export const useFormularioProducto = (handleOpen) => {
   const editProducto = (obj) => {
     handleOpen('edit');
     setProducto({
+      id: obj._id,
       nombre: obj.nombre,
       descripcion: obj.descripcion,
       tipo: obj.tipo,
@@ -53,25 +61,40 @@ export const useFormularioProducto = (handleOpen) => {
     });
   };
 
-  const deleteProducto = (idProducto) => {
-    const newProducts = dataProductos.filter(
-      (product) => product.id !== idProducto
-    );
-
-    setDataProductos(newProducts);
+  const deleteProducto = async (idProducto) => {
+    try {
+      await api.post('/productos/delete', { id: idProducto });
+      setRefresh((prev) => !prev);
+    } catch (error) {}
   };
 
-  const saveProduct = () => {
+  const saveProduct = async (idProducto) => {
     const { descripcion, nombre, precio, stock, tipo } = producto;
     const isValid = !!(descripcion && nombre && precio && stock && tipo);
 
-    const id = Math.floor(Math.random() * 1_000_000);
-    const newProducto = { id, ...producto };
+    if (!isValid) return;
 
-    if (isValid) {
-      setDataProductos((prev) => [...prev, newProducto]);
-      resetProducto();
-      closeModal();
+    if (idProducto) {
+      try {
+        await api.post('/productos/edit', {
+          userId: user._id,
+          idProduct: idProducto,
+          ...producto,
+        });
+        resetProducto();
+        setRefresh((prev) => !prev);
+        closeModal();
+      } catch (error) {}
+    } else {
+      try {
+        await api.post('/productos/add', {
+          userId: user._id,
+          ...producto,
+        });
+        resetProducto();
+        setRefresh((prev) => !prev);
+        closeModal();
+      } catch (error) {}
     }
   };
 

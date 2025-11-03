@@ -92,7 +92,7 @@ const AddProductForm = ({ producto, handleChange, saveProduct, isEdit }) => {
           variant="contained"
           fullWidth
           color="success"
-          onClick={() => saveProduct()}
+          onClick={() => saveProduct(producto.id)}
         >
           {isEdit ? 'Editar' : 'Agregar'} Producto
         </Button>

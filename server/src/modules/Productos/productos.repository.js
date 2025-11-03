@@ -27,15 +27,17 @@ class Productos {
 
   /**
    * Metodo para editar el producto
-   * @param {string} id - id del producto que se quiere actualizar
-   * @param {Object} newProduct - Producto a actualizar
+   * @param {Object} params - id del producto que se quiere actualizar
+   * @param {string} params.idProduct - id del producto que se quiere actualizar
+   * @param {string} params.userId - id del producto que se quiere actualizar
+   * @param {Object} params.newProduct - Producto a actualizar
    * @returns
    */
-  static async editarProducto(id, newProduct) {
+  static async editarProducto({ idProduct, userId, newProduct }) {
     await Productos.getCollection();
 
     const result = await Productos.collection.updateOne(
-      { _id: id },
+      { _id: idProduct, userId },
       { $set: newProduct }
     );
     return result;
@@ -45,10 +47,10 @@ class Productos {
    * Metodo para listar los productos
    * @returns
    */
-  static async listarProductos() {
+  static async listarMisProductos(id) {
     await Productos.getCollection();
 
-    const result = await Productos.collection.find({}).toArray();
+    const result = await Productos.collection.find({ userId: id }).toArray();
     return result;
   }
 
