@@ -1,52 +1,7 @@
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { Box, Stack, TextField } from '@mui/material';
-import dayjs from 'dayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
-import { useState } from 'react';
 
 const AddCitaForm = () => {
-  const [descripcion, setDescripcion] = useState('');
-  const [servicio, setServicio] = useState('');
-  const [date, setDate] = useState(null);
-  const [horaInicial, setHoraInicial] = useState(null);
-  const [horaFinal, setHoraFinal] = useState(null);
-
-  console.log({ date, horaInicial, horaFinal });
-  const horasOcupadas = [
-    '09:00',
-    '09:10',
-    '09:20',
-    '09:30',
-    '09:40',
-    '09:50',
-    '12:30',
-    '15:00',
-  ];
-
-  const shouldDisableTime = (value, view) => {
-    if (view === 'hours') {
-      const horaActual = dayjs(value).hour();
-      const possibleMinutes = [0, 10, 20, 30, 40, 50];
-      return possibleMinutes.every((minute) => {
-        const timeToTest = dayjs()
-          .hour(horaActual)
-          .minute(minute)
-          .format('HH:mm');
-        return horasOcupadas.includes(timeToTest);
-      });
-    }
-    if (view === 'minutes') {
-      const horaMin = dayjs(value).format('HH:mm');
-      return horasOcupadas.includes(horaMin);
-    }
-    return false;
-  };
-
   return (
     <>
       <Box>
@@ -60,6 +15,19 @@ const AddCitaForm = () => {
       <Stack spacing={3} marginTop={3}>
         <Box>
           <Typography variant="subtitle2" gutterBottom>
+            Servicio
+          </Typography>
+          <TextField
+            fullWidth
+            required
+            size="small"
+            type="text"
+            name="nombre"
+          />
+        </Box>
+
+        <Box>
+          <Typography variant="subtitle2" gutterBottom>
             Descripcion
           </Typography>
           <TextField
@@ -68,24 +36,40 @@ const AddCitaForm = () => {
             type="text"
             size="small"
             name="descripcion"
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
           />
         </Box>
         <Box>
           <Typography variant="subtitle2" gutterBottom>
-            Servicio
+            Tipo
           </Typography>
-          <TextField
-            fullWidth
-            required
-            type="text"
-            size="small"
-            name="servicio"
-            onChange={(e) => e.target.value}
-          />
+          <TextField fullWidth required type="" size="small" name="tipo" />
         </Box>
-
+        <Stack direction="row" spacing={2}>
+          <Box>
+            <Typography variant="subtitle2" gutterBottom>
+              Precio
+            </Typography>
+            <TextField
+              fullWidth
+              required
+              type="number"
+              size="small"
+              name="precio"
+            />
+          </Box>
+          <Box>
+            <Typography variant="subtitle2" gutterBottom>
+              Stock
+            </Typography>
+            <TextField
+              fullWidth
+              required
+              type="number"
+              size="small"
+              name="stock"
+            />
+          </Box>
+        </Stack>
         <Button variant="contained" fullWidth color="success">
           Programar Cita
         </Button>

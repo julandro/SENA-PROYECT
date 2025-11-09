@@ -8,22 +8,22 @@ import { useAuth } from './AuthContext';
 const CitasContext = createContext(null);
 
 export const CitasProvider = ({ children }) => {
-  const [citasPendientes, setCitasPendientes] = useState([]);
+  const [citasProgramadas, setCitasProgramadas] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
-    const getCitasPendientes = async () => {
-      const response = await api.post('/citas/getPendientes', {
+    const getCitasProgramadas = async () => {
+      const response = await api.post('/citas/getAllByUser', {
         userId: user._id,
       });
 
       console.log(response);
     };
-    getCitasPendientes();
+    getCitasProgramadas();
   }, []);
 
   return (
-    <CitasContext.Provider value={{ citasPendientes, setCitasPendientes }}>
+    <CitasContext.Provider value={{ citasProgramadas, setCitasProgramadas }}>
       {children}
     </CitasContext.Provider>
   );

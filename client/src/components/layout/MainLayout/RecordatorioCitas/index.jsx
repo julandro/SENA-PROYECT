@@ -11,10 +11,10 @@ import { useCitas } from '../../../../contexts/CitasContext';
 
 export default function RecordatorioCitas({ open }) {
   const [isCitasShowing, setIsCitasShowing] = useState(true);
-  const { citasPendientes } = useCitas();
+  const { citasProgramadas } = useCitas();
   return (
     <>
-      {citasPendientes.length ? (
+      {citasProgramadas.length ? (
         <>
           <BoxToggleButton
             open={open}
