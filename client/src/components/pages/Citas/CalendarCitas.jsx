@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const events = [
   {
@@ -13,21 +14,29 @@ const events = [
   },
 ];
 
-const CalendarCitas = ({ citasProgramadas, isProgamable, handleOpen }) => {
-  const handleSelect = (info) => {
-    handleOpen('add');
-  };
-
+/**
+ *
+ * @param {Object} params
+ * @param {Array<object>} params.listCitas
+ * @param {Function} params.handleSelect
+ * @returns
+ */
+const CalendarCitas = ({
+  listCitas,
+  isProgramable,
+  handleSelect,
+  handleEventClick,
+}) => {
   return (
     <FullCalendar
       height={600}
       allDaySlot={false}
       plugins={[interactionPlugin, timeGridPlugin, dayGridPlugin]}
       initialView="timeGridWeek"
-      selectable={isProgamable}
+      selectable={isProgramable}
       selectMirror={true}
       select={(arg) => handleSelect(arg)}
-      events={citasProgramadas}
+      events={listCitas}
       eventContent={renderEventContent}
       headerToolbar={{
         right: 'today timeGridDay,timeGridWeek prev,next',
@@ -51,7 +60,17 @@ const CalendarCitas = ({ citasProgramadas, isProgamable, handleOpen }) => {
         meridiem: 'short',
       }}
       stickyHeaderDates={true}
-      eventClick={(args) => console.log(args)}
+      eventClick={handleEventClick}
+      eventMouseEnter={(info) => {
+        info.el.style.cursor = 'pointer';
+      }}
+      dayHeaderContent={(args) => {
+        const dayName = args.date.toLocaleDateString('es-CO', {
+          weekday: 'long',
+        });
+        const dayNumber = args.date.getDate();
+        return `${dayName.toUpperCase()} ${dayNumber}`;
+      }}
     />
   );
 };
@@ -59,7 +78,6 @@ const CalendarCitas = ({ citasProgramadas, isProgamable, handleOpen }) => {
 function renderEventContent(eventInfo) {
   return (
     <>
-      {console.log(eventInfo)}
       <b>{eventInfo.timeText}</b> <i>{eventInfo.event.title}</i>
     </>
   );

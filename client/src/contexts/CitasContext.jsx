@@ -9,21 +9,25 @@ const CitasContext = createContext(null);
 
 export const CitasProvider = ({ children }) => {
   const [citasProgramadas, setCitasProgramadas] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
     const getCitasProgramadas = async () => {
-      const response = await api.post('/citas/getAllByUser', {
+      const { data } = await api.post('/citas/getAllByUser', {
         userId: user._id,
       });
-
-      console.log(response);
+      console.log(citasProgramadas);
+      const { result } = data;
+      setCitasProgramadas([...result]);
     };
     getCitasProgramadas();
-  }, []);
+  }, [setCitasProgramadas, refresh]);
 
   return (
-    <CitasContext.Provider value={{ citasProgramadas, setCitasProgramadas }}>
+    <CitasContext.Provider
+      value={{ citasProgramadas, setCitasProgramadas, setRefresh, refresh }}
+    >
       {children}
     </CitasContext.Provider>
   );

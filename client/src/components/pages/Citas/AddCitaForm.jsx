@@ -1,12 +1,19 @@
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 
-const AddCitaForm = () => {
+const AddCitaForm = ({
+  isEdit,
+  cita,
+  addCita,
+  handleChangeCita,
+  editarCita,
+  eliminarCita,
+}) => {
   return (
     <>
       <Box>
         <Typography variant="h5" fontWeight="bold">
-          Programar Cita
+          {isEdit ? 'Editar' : 'Programar'} Cita
         </Typography>
         <Typography variant="subtitle2" color="text.secondary">
           Digite los campos para programar la cita
@@ -22,7 +29,9 @@ const AddCitaForm = () => {
             required
             size="small"
             type="text"
-            name="nombre"
+            name="servicio"
+            value={cita.servicio || ''}
+            onChange={(e) => handleChangeCita(e)}
           />
         </Box>
 
@@ -36,43 +45,82 @@ const AddCitaForm = () => {
             type="text"
             size="small"
             name="descripcion"
+            value={cita.descripcion || ''}
+            onChange={handleChangeCita}
           />
-        </Box>
-        <Box>
-          <Typography variant="subtitle2" gutterBottom>
-            Tipo
-          </Typography>
-          <TextField fullWidth required type="" size="small" name="tipo" />
         </Box>
         <Stack direction="row" spacing={2}>
           <Box>
             <Typography variant="subtitle2" gutterBottom>
-              Precio
+              Fecha Inicial
             </Typography>
             <TextField
               fullWidth
               required
-              type="number"
+              type="text"
               size="small"
-              name="precio"
+              name="fechaInicio"
+              disabled
+              value={new Date(cita.fechaInicial).toLocaleDateString('es-CO', {
+                timeZone: 'UTC',
+                month: '2-digit', // nombre completo del mes
+                day: '2-digit', // número del día
+                hour: '2-digit', // hora
+                minute: '2-digit', // minutos
+              })}
             />
           </Box>
           <Box>
             <Typography variant="subtitle2" gutterBottom>
-              Stock
+              Fecha Final
             </Typography>
             <TextField
               fullWidth
               required
-              type="number"
+              type="text"
               size="small"
-              name="stock"
+              name="fechaInicial"
+              disabled
+              value={new Date(cita.fechaFinal).toLocaleString('es-CO', {
+                timeZone: 'UTC',
+                month: '2-digit', // nombre completo del mes
+                day: '2-digit', // número del día
+                hour: '2-digit', // hora
+                minute: '2-digit', // minutos
+                hour12: true,
+              })}
             />
           </Box>
         </Stack>
-        <Button variant="contained" fullWidth color="success">
-          Programar Cita
-        </Button>
+        {isEdit ? (
+          <Stack direction="row" spacing={3}>
+            <Button
+              variant="contained"
+              fullWidth
+              color="error"
+              onClick={eliminarCita}
+            >
+              Eliminar
+            </Button>
+            <Button
+              variant="contained"
+              fullWidth
+              color="success"
+              onClick={editarCita}
+            >
+              Editar
+            </Button>
+          </Stack>
+        ) : (
+          <Button
+            variant="contained"
+            fullWidth
+            color="success"
+            onClick={addCita}
+          >
+            Programar Cita
+          </Button>
+        )}
       </Stack>
     </>
   );

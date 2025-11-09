@@ -9,23 +9,32 @@ import { BoxOptions } from '../../ui/BoxOptions';
 import ModalCitas from './ModalCitas';
 import CalendarCitas from './CalendarCitas';
 import CircleIcon from '@mui/icons-material/Circle';
-import { useCitas } from '../../../contexts/CitasContext';
+import useCitasHook from './useCitasHook';
 
 const Citas = () => {
   const [modalContent, setModalContent] = useState(null);
-  const [isProgamable, setIsProgramable] = useState(false);
-
-  const { citasProgramadas, setCitasProgramadas } = useCitas();
+  const [isProgramable, setIsProgramable] = useState(false);
 
   const handleOpen = (type) => setModalContent(type);
   const closeModal = () => handleOpen(null);
+
+  const {
+    listCitas,
+    handleSelect,
+    cita,
+    addCita,
+    handleChangeCita,
+    handleEventClick,
+    editarCita,
+    eliminarCita,
+  } = useCitasHook(handleOpen);
 
   return (
     <>
       <Typography variant="h4">Citas</Typography>
       <Divider />
       <Typography mt={5} variant="h5" textAlign="center" color="inherit">
-        {isProgamable ? 'Se puede' : 'No se pueden'} programar citas
+        {isProgramable ? 'Se puede' : 'No se pueden'} programar citas
       </Typography>
       <BoxOptions position="fixed" sx={{ mb: 1 }}>
         <Stack
@@ -38,7 +47,7 @@ const Citas = () => {
           <Button
             color="inherit"
             startIcon={
-              isProgamable ? (
+              isProgramable ? (
                 <CircleIcon fontSize="10px" color="success" />
               ) : (
                 <CircleIcon fontSize="10px" color="error" />
@@ -49,19 +58,28 @@ const Citas = () => {
           </Button>
           <Button
             variant="contained"
-            color={isProgamable ? 'error' : 'success'}
-            onClick={() => setIsProgramable(!isProgamable)}
+            color={isProgramable ? 'error' : 'success'}
+            onClick={() => setIsProgramable(!isProgramable)}
           >
-            {isProgamable ? 'Inhabilitar' : 'Habilitar'}
+            {isProgramable ? 'Inhabilitar' : 'Habilitar'}
           </Button>
         </Stack>
       </BoxOptions>
       <CalendarCitas
-        citasProgramadas={citasProgramadas}
-        isProgamable={isProgamable}
-        handleOpen={handleOpen}
+        listCitas={listCitas}
+        isProgramable={isProgramable}
+        handleSelect={handleSelect}
+        handleEventClick={handleEventClick}
       />
-      <ModalCitas modalContent={modalContent} closeModal={closeModal} />
+      <ModalCitas
+        modalContent={modalContent}
+        closeModal={closeModal}
+        cita={cita}
+        addCita={addCita}
+        handleChangeCita={handleChangeCita}
+        editarCita={editarCita}
+        eliminarCita={eliminarCita}
+      />
     </>
   );
 };
