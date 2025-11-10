@@ -23,6 +23,7 @@ import Inicio from './components/pages/Inicio';
 import { setupInterceptos } from './services/api';
 import { useAuth } from './contexts/AuthContext';
 import PublicRoutes from './components/auth/PublicRoutes';
+import { CitasProvider } from './contexts/CitasContext';
 
 function App() {
   const { logout } = useAuth();
@@ -50,7 +51,9 @@ function App() {
         path="/"
         element={
           <ProtectRoutes>
-            <MainLayout />
+            <CitasProvider>
+              <MainLayout />
+            </CitasProvider>
           </ProtectRoutes>
         }
       >

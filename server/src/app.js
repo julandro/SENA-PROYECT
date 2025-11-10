@@ -3,6 +3,7 @@ import productRoutes from './modules/Productos/index.js';
 import authRoutes from './modules/auth/index.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import citasRoutes from './modules/Citas/index.js';
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use(cookieParser());
 app.use('/auth', authRoutes);
 
 app.use('/productos', productRoutes);
+app.use('/citas', citasRoutes);
 
 export default app;
