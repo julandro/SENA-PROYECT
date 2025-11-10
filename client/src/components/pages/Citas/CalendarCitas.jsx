@@ -58,19 +58,19 @@ const CalendarCitas = ({
         hour: 'numeric',
         minute: '2-digit',
         meridiem: 'short',
+        hourCycle: 'h12',
       }}
       stickyHeaderDates={true}
       eventClick={handleEventClick}
       eventMouseEnter={(info) => {
         info.el.style.cursor = 'pointer';
       }}
-      dayHeaderContent={(args) => {
-        const dayName = args.date.toLocaleDateString('es-CO', {
-          weekday: 'long',
-        });
-        const dayNumber = args.date.getDate();
-        return `${dayName.toUpperCase()} ${dayNumber}`;
+      locale="es"
+      dayHeaderFormat={{
+        weekday: 'long',
+        day: 'numeric',
       }}
+      slotLabelFormat={{ hour: 'numeric', hourCycle: 'h12' }}
     />
   );
 };

@@ -38,7 +38,7 @@ export default function RecordatorioCitas({ open }) {
             elevation={3}
             sx={{ background: 'white' }}
           >
-            <CardInfoCitas />
+            <CardInfoCitas citas={citasProgramadas} />
           </AppBar>
         </>
       ) : null}

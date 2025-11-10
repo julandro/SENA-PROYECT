@@ -13,7 +13,6 @@ export default function MainLayout() {
       <Main component="main" open={open} sx={{ flexGrow: 1, p: 3 }}>
         <Outlet />
       </Main>
-      <RecordatorioCitas open={open} />
     </>
   );
 }
