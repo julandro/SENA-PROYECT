@@ -155,6 +155,7 @@ export default function Sidebar({ open, setOpen }) {
                   <LogoutIcon />
                 </IconButton>
               </ListItem>
+              {/* 
               <ListItem
                 sx={[
                   {
@@ -178,6 +179,7 @@ export default function Sidebar({ open, setOpen }) {
                   <SettingsIcon />
                 </IconButton>
               </ListItem>
+               */}
             </>
           ) : (
             <ListItemButton
