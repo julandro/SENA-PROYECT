@@ -84,7 +84,7 @@ export const login = async (req, res) => {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: env.NODE_ENV === 'production', // Solo en produccion
-      sameSite: 'lax',
+      sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
     });
 
@@ -137,7 +137,7 @@ export const logout = (req, res) => {
   res.cookie('refreshToken', '', {
     httpOnly: true,
     secure: env.NODE_ENV === 'production', // Solo en produccion
-    sameSite: 'lax',
+    sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
     expires: new Date(0),
   });
 

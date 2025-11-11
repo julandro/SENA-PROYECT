@@ -9,7 +9,22 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: (origin, callback) => {
+      // Lista de orígenes permitidos
+      const allowedOrigins = [
+        'http://localhost:5173', // Para desarrollo local
+        'veterinaria-julandro.pages.dev',
+      ];
+
+      // Si el origen de la petición está en nuestra lista de permitidos, o si no hay origen (ej. Postman en desarrollo),
+      // o si estamos en desarrollo y el origen es localhost, lo permitimos.
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        // Si el origen no está permitido, rechazamos la solicitud
+        callback(new Error('No permitido por CORS'));
+      }
+    },
     credentials: true,
   })
 );

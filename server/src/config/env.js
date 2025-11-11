@@ -9,5 +9,5 @@ export default {
   SALT_ROUNDS: Number(process.env.SALT_ROUNDS),
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
-  ENV: process.env.ENVIRONMENT,
+  NODE_ENV: process.env.ENVIRONMENT,
 };
