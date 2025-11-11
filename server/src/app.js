@@ -13,7 +13,7 @@ app.use(
       // Lista de orígenes permitidos
       const allowedOrigins = [
         'http://localhost:5173', // Para desarrollo local
-        'veterinaria-julandro.pages.dev',
+        'https://veterinaria-julandro.pages.dev',
       ];
 
       // Si el origen de la petición está en nuestra lista de permitidos, o si no hay origen (ej. Postman en desarrollo),
