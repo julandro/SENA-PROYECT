@@ -1,0 +1,77 @@
+import React, { useEffect, useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+
+// Proteccion
+import ProtectRoutes from './components/auth/ProtectRoutes';
+
+// Layouts
+import AuthLayout from './components/layout/AuthLayout';
+import MainLayout from './components/layout/MainLayout';
+
+// Pages
+import Login from './components/pages/Login';
+import Register from './components/pages/Register';
+import Productos from './components/pages/Productos';
+import Facturas from './components/pages/Facturas';
+import Citas from './components/pages/Citas';
+import Clientes from './components/pages/Clientes';
+import Mascotas from './components/pages/Mascotas';
+import Empleados from './components/pages/Empleados';
+import GestionesMedicas from './components/pages/GestionesMedicas';
+import RealizarFactura from './components/pages/RealizarFactura';
+import Inicio from './components/pages/Inicio';
+import { setupInterceptos } from './services/api';
+import { useAuth } from './contexts/AuthContext';
+import PublicRoutes from './components/auth/PublicRoutes';
+import { CitasProvider } from './contexts/CitasContext';
+
+function App() {
+  const { logout } = useAuth();
+
+  useEffect(() => {
+    setupInterceptos(logout);
+  }, [logout]);
+
+  return (
+    <Routes>
+      {/* Rutas Públicas */}
+      <Route
+        element={
+          <PublicRoutes>
+            <AuthLayout />
+          </PublicRoutes>
+        }
+      >
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+      </Route>
+
+      {/* Rutas Protegidas */}
+      <Route
+        path="/"
+        element={
+          <ProtectRoutes>
+            <CitasProvider>
+              <MainLayout />
+            </CitasProvider>
+          </ProtectRoutes>
+        }
+      >
+        <Route index path="/" element={<Inicio />}></Route>
+        <Route path="/productos" element={<Productos />}></Route>
+        <Route path="/facturas" element={<Facturas />}></Route>
+        <Route path="/citas" element={<Citas />}></Route>
+        <Route path="/clientes" element={<Clientes />}></Route>
+        <Route path="/mascotas" element={<Mascotas />}></Route>
+        <Route path="/empleados" element={<Empleados />}></Route>
+        <Route path="/gestiones-medicas" element={<GestionesMedicas />}></Route>
+        <Route path="/realizar-factura" element={<RealizarFactura />}></Route>
+      </Route>
+
+      {/* Si la ruta no existe lo redirige al home (si esta logueado, sino a las rutas publicas) */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+
+export default App;

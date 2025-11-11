@@ -43,13 +43,7 @@ git clone https://github.com/julandro/SENA-PROYECTO.git
 cd SENA-PROYECTO
 ```
 
-### 2. Cambio a la rama de desarrollo
-
-```bash
-git checkout staging
-```
-
-### 3. Configuración del Frontend
+### 2. Configuración del Frontend
 
 ```bash
 cd client
