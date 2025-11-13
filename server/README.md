@@ -178,9 +178,7 @@ POST /productos/getAllMyProducts
 
 ```json
 {
-{
-    "userId": ""
-}
+  "userId": ""
 }
 ```
 
@@ -238,8 +236,8 @@ POST /productos/edit
 
 ```json
 {
-  "idProduct": "",
   "userId": "",
+  "idProduct": "",
   "nombre": "",
   "descripcion": "",
   "tipo": "",
@@ -300,7 +298,7 @@ POST /citas/getAllByUser
 
 ```json
 {
-  "userId": string
+  "userId": ""
 }
 ```
 
@@ -358,6 +356,7 @@ POST /citas/editarCita
 {
   "userId": "",
   "cita": {
+    "_id": "",
     "servicio": "",
     "descripcion": "",
     "fechaInicial": "",
@@ -383,7 +382,7 @@ POST /citas/eliminarCita
 
 ```json
 {
-  "userId": ""
+  "citaId": ""
 }
 ```
 
