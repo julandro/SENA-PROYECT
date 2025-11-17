@@ -31,6 +31,7 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import { DrawerHeader, Drawer } from './styles';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../../contexts/AuthContext';
+import LogoBlack2 from '../../../../assets/img/LogoBlack2.png';
 
 const listLinks = [
   {
@@ -118,7 +119,12 @@ export default function Sidebar({ open, setOpen }) {
         <DrawerHeader>
           {open ? (
             <>
-              <img alt="Lucky GVO" style={{ margin: 'auto' }} />
+              <img
+                src={LogoBlack2}
+                alt="Lucky GVO"
+                width={110}
+                style={{ margin: 'auto' }}
+              />
               <IconButton onClick={handleDrawerClose}>
                 {theme.direction === 'rtl' ? (
                   <ChevronRightIcon />
