@@ -151,5 +151,5 @@ cd SENA-PROYECTO
 Julian Alejandro Camacho Mendoza
 SENA – Tecnología en Análisis y Desarrollo de Software – Ficha 2977360
 
-- **Correo:** [julandro.mza@gmail.com](mailto:julian.camacho@example.com)
+- **Correo:** [julandro.mza@gmail.com](mailto:julandro.mza@gmail.com)
 - **Github:** [Ir al Github](https://github.com/julandro)
